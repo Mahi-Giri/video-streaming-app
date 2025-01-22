@@ -11,7 +11,9 @@ const VideoList = () => {
 
     const fetchVideos = async (pageNumber) => {
         try {
-            const response = await axios.get(`/api/videos?page=${pageNumber}&limit=10`);
+            const response = await axios.get(
+                `/api/videos?page=${pageNumber}&limit=10`
+            );
             const { data, totalPages } = response.data;
 
             setVideos((prevVideos) => [...prevVideos, ...data]);

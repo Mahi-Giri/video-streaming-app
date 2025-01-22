@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
-import SignIn from "../pages/SignIn";
 
 const PrivateRoute = () => {
     const { currentUser } = useSelector((store) => store.user);

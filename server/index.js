@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
-import authRoute from "./router/auth.route.js";
+import authRoute from "./router/auth.route.js"
+import videoRoute from "./router/video.route.js";
 import cookieParser from "cookie-parser";
 import connectDB from "./db/index.js";
 import cors from "cors";
@@ -26,6 +27,7 @@ connectDB()
   });
 
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/video", videoRoute);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

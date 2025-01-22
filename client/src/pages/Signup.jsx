@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { FaUser, FaLock, FaEnvelope, FaRegUser, FaGoogle } from "react-icons/fa";
+import {
+    FaUser,
+    FaLock,
+    FaEnvelope,
+    FaRegUser,
+    FaGoogle,
+} from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../axiosConfig";
 import OAuth from "../components/OAuth";
@@ -44,9 +50,13 @@ const Signup = () => {
             }}
         >
             <div className="relative w-[350px] h-[500px]">
-                <div className="absolute w-full h-full bg-black/40 backdrop-blur-md rounded-2xl p-6 shadow-lg flex flex-col justify-center">
-                    <h2 className="text-2xl font-bold text-center text-white">Register</h2>
-                    <p className="text-white/60 text-center mb-4">Create a new account</p>
+                <div className="absolute w-full h-full bg-black/50 backdrop-blur-md rounded-2xl p-6 shadow-lg flex flex-col justify-center">
+                    <h2 className="text-2xl font-bold  text-white">
+                        Register
+                    </h2>
+                    <p className="text-white/60  mb-4">
+                        Create a new account
+                    </p>
 
                     <form className="space-y-4" onSubmit={handleSubmit}>
                         <div className="relative">
@@ -87,14 +97,14 @@ const Signup = () => {
                         </div>
                         <button
                             type="submit"
-                            className="w-full bg-blue-600 text-white py-3 rounded-md flex items-center justify-center gap-2"
+                            className="w-full bg-red-500 text-white py-3 rounded-md flex items-center justify-center gap-2"
                         >
                             <FaUser /> Register
                         </button>
                         {/* <OAuth /> */}
                     </form>
 
-                    <p className="text-center text-white/60 mt-4">
+                    <p className=" text-white/60 mt-4">
                         Already have an account?{" "}
                         <Link to="/login">
                             <button className="text-blue-400">Login</button>

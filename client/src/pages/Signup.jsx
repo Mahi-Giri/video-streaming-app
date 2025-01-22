@@ -4,6 +4,8 @@ import {
     FaLock,
     FaEnvelope,
     FaRegUser,
+    FaEye,
+    FaEyeSlash,
     FaGoogle,
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,6 +18,8 @@ const Signup = () => {
         email: "",
         password: "",
     });
+
+    const [show, setShow] = useState(false);
 
     const navigate = useNavigate();
     // Handle input change
@@ -51,12 +55,8 @@ const Signup = () => {
         >
             <div className="relative w-[350px] h-[500px]">
                 <div className="absolute w-full h-full bg-black/50 backdrop-blur-md rounded-2xl p-6 shadow-lg flex flex-col justify-center">
-                    <h2 className="text-2xl font-bold  text-white">
-                        Register
-                    </h2>
-                    <p className="text-white/60  mb-4">
-                        Create a new account
-                    </p>
+                    <h2 className="text-2xl font-bold  text-white">Register</h2>
+                    <p className="text-white/60  mb-4">Create a new account</p>
 
                     <form className="space-y-4" onSubmit={handleSubmit}>
                         <div className="relative">
@@ -86,7 +86,7 @@ const Signup = () => {
                         <div className="relative">
                             <FaLock className="absolute left-4 top-4 text-gray-400" />
                             <input
-                                type="password"
+                                type={show ? "text" : "password"}
                                 name="password"
                                 value={formData.password}
                                 onChange={handleChange}
@@ -94,6 +94,17 @@ const Signup = () => {
                                 placeholder="Password"
                                 required
                             />
+                            {show ? (
+                                <FaEye
+                                    className="absolute right-4 top-4 text-gray-400"
+                                    onClick={() => setShow(!show)}
+                                />
+                            ) : (
+                                <FaEyeSlash
+                                    className="absolute right-4 top-4 text-gray-400"
+                                    onClick={() => setShow(!show)}
+                                />
+                            )}
                         </div>
                         <button
                             type="submit"

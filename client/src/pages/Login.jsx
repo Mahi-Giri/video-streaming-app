@@ -1,13 +1,14 @@
 import { useState } from "react";
 import api from "../axiosConfig";
-import { FaUser, FaLock, FaEnvelope } from "react-icons/fa";
+import { FaUser, FaLock, FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { signinSuccess } from '../redux/userSlice'
+import { signinSuccess } from "../redux/userSlice";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [show, setShow] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleLogin = async (e) => {
@@ -18,7 +19,6 @@ const Login = () => {
                 password,
             });
 
-            // console.log(response?.data);
 
             if (response.data) {
                 dispatch(signinSuccess(response?.data));
@@ -60,13 +60,24 @@ const Login = () => {
                         <div className="relative">
                             <FaLock className="absolute left-4 top-4 text-gray-400" />
                             <input
-                                type="password"
+                                type={show ? "text" : "password"}
                                 className="w-full bg-white/10 border border-white/20 rounded-lg py-3 pl-12 pr-4 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/40"
                                 placeholder="Enter your password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
+                            {show ? (
+                                <FaEye
+                                    className="absolute right-4 top-4 text-gray-400"
+                                    onClick={() => setShow(!show)}
+                                />
+                            ) : (
+                                <FaEyeSlash
+                                    className="absolute right-4 top-4 text-gray-400"
+                                    onClick={() => setShow(!show)}
+                                />
+                            )}
                         </div>
                         <button
                             type="submit"

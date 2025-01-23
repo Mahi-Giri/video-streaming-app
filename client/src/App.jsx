@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./components/Dashboard";
 import Home from "./pages/Home";
 import PrivateRoute from "./components/PrivateRoute";
+import Upload from "./components/video/Upload";
 
 const App = () => {
     return (
@@ -14,6 +15,7 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/upload" element={<Upload />} />
                 <Route element={<PrivateRoute />}>
                     <Route path="/dashboard" element={<Dashboard />} />
                 </Route>

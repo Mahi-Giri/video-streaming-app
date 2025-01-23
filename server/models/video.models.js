@@ -11,6 +11,15 @@ const videoSchema = new mongoose.Schema(
             type: String,
             trim: true,
         },
+        category: {
+            type: String,
+            required: true,
+        },
+        subscription:{
+            type:String,
+            required:true,
+        },
+        
         thumbnailUrl: {
             type: String,
             required: true,

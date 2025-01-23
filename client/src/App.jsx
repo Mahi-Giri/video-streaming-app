@@ -11,24 +11,28 @@ import Navbar from "./pages/Navbar";
 import "./App.css";
 
 const App = () => {
-  const [isNavbarExpanded, setNavbarExpanded] = useState(false);
+    const [isNavbarExpanded, setNavbarExpanded] = useState(false);
 
-  return (
-    <Router>
-      <Navbar setNavbarExpanded={setNavbarExpanded} />
-      <div className={`home-container ${isNavbarExpanded ? "expanded" : ""}`}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route element={<PrivateRoute />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/profile" element={<Profile />} />
-          </Route>
-        </Routes>
-      </div>
-    </Router>
-  );
+    return (
+        <Router>
+            <Navbar setNavbarExpanded={setNavbarExpanded} />
+            <div
+                className={`home-container ${
+                    isNavbarExpanded ? "expanded" : ""
+                }`}
+            >
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route element={<PrivateRoute />}>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/profile" element={<Profile />} />
+                    </Route>
+                </Routes>
+            </div>
+        </Router>
+    );
 };
 
 export default App;

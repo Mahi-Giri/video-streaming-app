@@ -19,11 +19,10 @@ const Login = () => {
                 password,
             });
 
-
             if (response.data) {
                 dispatch(signinSuccess(response?.data));
                 toast.success("User Login Success");
-                navigate("/dashboard");
+                navigate("/");
             } else {
                 toast.error("Invalid login credentials");
             }

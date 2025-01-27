@@ -10,6 +10,7 @@ import Upload from "./components/video/Upload";
 import Profile from "./pages/Profile";
 import Navbar from "./pages/Navbar";
 import "./App.css";
+import Subscription from "./pages/Subscription";
 
 const App = () => {
     const [isNavbarExpanded, setNavbarExpanded] = useState(false);
@@ -17,9 +18,8 @@ const App = () => {
         <Router>
             <Navbar setNavbarExpanded={setNavbarExpanded} />
             <div
-                className={`home-container ${
-                    isNavbarExpanded ? "expanded" : ""
-                }`}
+                className={`home-container ${isNavbarExpanded ? "expanded" : ""
+                    }`}
             >
                 <Routes>
                     <Route path="/login" element={<Login />} />
@@ -27,6 +27,7 @@ const App = () => {
                     <Route element={<PrivateRoute />}>
                         <Route path="/" element={<Home />} />
                         <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/Subscription" element={<Subscription />} />
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/upload" element={<Upload />} />
                     </Route>

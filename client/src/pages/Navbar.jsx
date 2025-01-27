@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { IoSettingsOutline } from "react-icons/io5";
+import { MdSubscriptions } from "react-icons/md";
 import "./Nav.css";
 import api from "../axiosConfig";
 import {
@@ -74,6 +75,10 @@ const Navbar = () => {
                             <span className="link-name">Series</span>
                         )}
                     </Link>
+                    <Link to="/Subscription" className="nav-link">
+          <MdSubscriptions />
+          {isExpanded && <span className="link-name">Subscription</span>}
+        </Link>
                     <Link to="/profile" className="nav-link">
                         <FaUser className="icon" title="Profile" />
                         {isExpanded && (

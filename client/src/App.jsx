@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import Navbar from "./pages/Navbar";
 import "./App.css";
 import Subscription from "./pages/Subscription";
+import MovieSearch from "./pages/MovieSearch";
 
 const App = () => {
     const [isNavbarExpanded, setNavbarExpanded] = useState(false);
@@ -30,6 +31,7 @@ const App = () => {
                         <Route path="/Subscription" element={<Subscription />} />
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/upload" element={<Upload />} />
+                        <Route path="/search" element={<MovieSearch/>}/>
                     </Route>
                 </Routes>
             </div>

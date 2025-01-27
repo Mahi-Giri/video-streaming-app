@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Modal, Button } from "flowbite-react";
+// import { Modal, Button } from "flowbite-react";
 import {
     FaHome,
     FaSearch,
@@ -8,133 +8,201 @@ import {
     FaTv,
     FaUser,
     FaSignOutAlt,
+    FaSubscript,
 } from "react-icons/fa";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
+// import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { IoSettingsOutline } from "react-icons/io5";
-import { MdSubscriptions } from "react-icons/md";
-import "./Nav.css";
-import api from "../axiosConfig";
-import {
-    signOutStart,
-    signOutSuccess,
-    signOutFailure,
-} from "../redux/userSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import { MdOutlineSubscriptions } from "react-icons/md";
+// import SubscriptionPage from "./Subscription";
 
-const Navbar = () => {
-    const dispatch = useDispatch();
+const Navbar = ({ setNavbarExpanded }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
 
-    const [isExpanded, setIsExpanded] = useState(false);
-    const [openModal, setOpenModal] = useState(false);
+  const toggleNavbar = () => {
+    setIsExpanded(!isExpanded);
+    setNavbarExpanded(!isExpanded);
+  };
 
-    const toggleNavbar = () => {
-        setIsExpanded(!isExpanded);
-    };
-
-    const handleLogout = async () => {
-      setOpenModal(false)
-        dispatch(signOutStart());
-        const response = await api.post("/api/v1/user/signout");
-        console.log(response);
-        if (response.status === 200) {
-            toast.success(response.data.message || "User Signout Successful");
-            dispatch(signOutSuccess());
-        } else {
-            dispatch(signOutFailure(response.data || "Logout Failed"));
-        }
-    };
-
-    return (
-        <>
-            {" "}
-            <nav className={`nav-container ${isExpanded ? "expanded" : ""}`}>
-                <div className="toggle-button" onClick={toggleNavbar}>
-                    <span className="menu-icon">&#9776;</span>
-                </div>
-                <div className="nav-left">
-                    <Link to="/" className="nav-link">
-                        <FaHome className="icon" title="Home" />
-                        {isExpanded && <span className="link-name">Home</span>}
-                    </Link>
-                    <Link to="/search" className="nav-link">
-                        <FaSearch className="icon" title="Search" />
-                        {isExpanded && (
-                            <span className="link-name">Explore</span>
-                        )}
-                    </Link>
-                    <Link to="/movies" className="nav-link">
-                        <FaFilm className="icon" title="Movies" />
-                        {isExpanded && (
-                            <span className="link-name">Movies</span>
-                        )}
-                    </Link>
-                    <Link to="/series" className="nav-link">
-                        <FaTv className="icon" title="Series" />
-                        {isExpanded && (
-                            <span className="link-name">Series</span>
-                        )}
-                    </Link>
-                    <Link to="/Subscription" className="nav-link">
-          <MdSubscriptions />
-          {isExpanded && <span className="link-name">Subscription</span>}
-        </Link>
-                    <Link to="/profile" className="nav-link">
-                        <FaUser className="icon" title="Profile" />
-                        {isExpanded && (
-                            <span className="link-name">Profile</span>
-                        )}
-                    </Link>
-                    <div
-                        onClick={() => setOpenModal(true)}
-                        className="nav-link"
-                    >
-                        <FaSignOutAlt className="icon" title="Logout" />
-                        {isExpanded && (
-                            <span className="link-name">Log Out</span>
-                        )}
-                    </div>
-                    <Link to="/settings" className="nav-link">
-                        <IoSettingsOutline className="icon" title="Settings" />
-                        {isExpanded && (
-                            <span className="link-name">Settings</span>
-                        )}
-                    </Link>
-                </div>
-            </nav>
-         
-            <Modal
-                show={openModal}
-                size="md"
-                position="center"
-                className="model_stylings"
-                onClose={() => setOpenModal(false)}
-            >
-                <div className="bg-black/50 p-4 backdrop-blur-md">
-                    <Modal.Header />
-                    <Modal.Body>
-                        <div className="text-center">
-                            <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-white/80 " />
-                            <h3 className="mb-5 text-lg font-normal text-white/80 ">
-                                Are you sure you want to log out?
-                            </h3>
-                            <div className="flex justify-center gap-4">
-                                <Button color="failure" onClick={handleLogout}>
-                                    {"Yes, I'm sure"}
-                                </Button>
-                                <Button
-                                    className="bg-red-500"
-                                    onClick={() => setOpenModal(false)}
-                                >
-                                    No, cancel
-                                </Button>
-                            </div>
-                        </div>
-                    </Modal.Body>
-                </div>
-            </Modal>
-        </>
-    );
+  return (
+    <nav
+      className={`fixed flex flex-col h-screen bg-black text-white transition-all duration-300 ${
+        isExpanded ? "w-40" : "w-16"
+      }`}
+    >
+      <div className="cursor-pointer p-2 text-xl" onClick={toggleNavbar}>
+        <span>&#9776;</span>
+      </div>
+      <div className="flex flex-col mt-24">
+        {/* Home */}
+        <div className="relative group">
+          <Link to="/" className="flex items-center p-4 hover:bg-gray-700">
+            <FaHome className="text-xl" />
+            {isExpanded && <span className="ml-4 text-base">Home</span>}
+          </Link>
+          <div className="absolute top-0 left-16 hidden group-hover:block">
+            <div className="relative">
+              <div className="absolute top-0 z-10 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
+                Home
+              </div>
+              <svg
+                className="absolute z-10 w-6 h-6 text-orange-500 transform -translate-x-12 -translate-y-3 fill-current"
+                width="8"
+                height="8"
+              >
+                <rect x="12" y="-10" width="8" height="8" transform="rotate(45)" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        {/* Explore */}
+        <div className="relative group">
+          <Link to="/search" className="flex items-center p-4 hover:bg-gray-700">
+            <FaSearch className="text-xl" />
+            {isExpanded && <span className="ml-4 text-base">Explore</span>}
+          </Link>
+          <div className="absolute top-0 left-16 hidden group-hover:block">
+            <div className="relative">
+              <div className="absolute top-0 z-10 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
+                Explore
+              </div>
+              <svg
+                className="absolute z-10 w-6 h-6 text-orange-500 transform -translate-x-12 -translate-y-3 fill-current"
+                width="8"
+                height="8"
+              >
+                <rect x="12" y="-10" width="8" height="8" transform="rotate(45)" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        {/* Movies */}
+        <div className="relative group">
+          <Link to="/movies" className="flex items-center p-4 hover:bg-gray-700">
+            <FaFilm className="text-xl" />
+            {isExpanded && <span className="ml-4 text-base">Movies</span>}
+          </Link>
+          <div className="absolute top-0 left-10 hidden group-hover:block">
+            <div className="relative">
+              <div className="absolute left-10 z-0 w-20 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
+                Movies
+              </div>
+              <svg
+                className="absolute z-10 w-6 h-6 text-orange-500 transform -translate-x-12 -translate-y-3 fill-current"
+                width="8"
+                height="8"
+              >
+                <rect x="12" y="-10" width="8" height="8" transform="rotate(45)" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        {/* Series */}
+        <div className="relative group">
+          <Link to="/series" className="flex items-center p-4 hover:bg-gray-700">
+            <FaTv className="text-xl" />
+            {isExpanded && <span className="ml-4 text-base">Series</span>}
+          </Link>
+          <div className="absolute top-0 left-16 hidden group-hover:block">
+            <div className="relative">
+              <div className="absolute top-0 z-10 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
+                Series
+              </div>
+              <svg
+                className="absolute z-10 w-6 h-6 text-orange-500 transform -translate-x-12 -translate-y-3 fill-current"
+                width="8"
+                height="8"
+              >
+                <rect x="12" y="-10" width="8" height="8" transform="rotate(45)" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div className="relative group">
+          <Link to="/Subscription" className="flex items-center p-4 hover:bg-gray-700">
+            <MdOutlineSubscriptions className="text-xl" />
+            {isExpanded && <span className="ml-4 text-base">Subscription</span>}
+          </Link>
+          <div className="absolute top-0 left-16 hidden group-hover:block">
+            <div className="relative">
+              <div className="absolute top-0 z-10 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
+                Subscribe
+              </div>
+              <svg
+                className="absolute z-10 w-6 h-6 text-orange-500 transform -translate-x-12 -translate-y-3 fill-current"
+                width="8"
+                height="8"
+              >
+                <rect x="12" y="-10" width="8" height="8" transform="rotate(45)" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        {/* Profile */}
+        <div className="relative group">
+          <Link to="/profile" className="flex items-center p-4 hover:bg-gray-700">
+            <FaUser className="text-xl" />
+            {isExpanded && <span className="ml-4 text-base">Profile</span>}
+          </Link>
+          <div className="absolute top-0 left-16 hidden group-hover:block">
+            <div className="relative">
+              <div className="absolute top-0 z-10 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
+                Profile
+              </div>
+              <svg
+                className="absolute z-10 w-6 h-6 text-orange-500 transform -translate-x-12 -translate-y-3 fill-current"
+                width="8"
+                height="8"
+              >
+                <rect x="12" y="-10" width="8" height="8" transform="rotate(45)" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        {/* Settings */}
+        <div className="relative group">
+          <Link to="/settings" className="flex items-center p-4 hover:bg-gray-700">
+            <IoSettingsOutline className="text-xl" />
+            {isExpanded && <span className="ml-4 text-base">Settings</span>}
+          </Link>
+          <div className="absolute top-0 left-16 hidden group-hover:block">
+            <div className="relative">
+              <div className="absolute top-0 z-10 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
+                Settings
+              </div>
+              <svg
+                className="absolute z-10 w-6 h-6 text-orange-500 transform -translate-x-12 -translate-y-3 fill-current"
+                width="8"
+                height="8"
+              >
+                <rect x="12" y="-10" width="8" height="8" transform="rotate(45)" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        {/* Logout */}
+        <div className="relative group">
+          <Link to="/login" className="flex items-center p-4 hover:bg-gray-700">
+            <FaSignOutAlt className="text-xl" />
+            {isExpanded && <span className="ml-4 text-base">Log Out</span>}
+          </Link>
+          <div className="absolute top-0 left-16 hidden group-hover:block">
+            <div className="relative">
+              <div className="absolute top-0 z-10 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
+                Log Out
+              </div>
+              <svg
+                className="absolute z-10 w-6 h-6 text-orange-500 transform -translate-x-12 -translate-y-3 fill-current"
+                width="8"
+                height="8"
+              >
+                <rect x="12" y="-10" width="8" height="8" transform="rotate(45)" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;

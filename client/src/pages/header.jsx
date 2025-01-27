@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./header.css";
 
 function Header() {
   const carouselData = [
@@ -54,29 +53,27 @@ function Header() {
   const currentSlide = carouselData[currentIndex];
 
   return (
-    <div className="netflix-header">
-      <div
-        className="carousel-slide"
-        style={{
-          backgroundImage: `url(${currentSlide.image})`,
-        }}
+    <div className="h-screen w-full relative overflow-hidden bg-black text-white">
+      <div className="h-full w-full bg-cover bg-right transition-all duration-500"
+        style={{ backgroundImage: `url(${currentSlide.image})` }}
       >
-        <div className="content-overlay">
-          <div className="title-section">
-            <h1 className="netflix-logo">NETFLIX</h1>
-            <div className="title">
-              <span className="series-title">{currentSlide.title}</span>
-              <span className="series-highlight">{currentSlide.highlight}</span>
-            </div>
-            <p className="part-number">{currentSlide.part}</p>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/30 to-black/90 flex flex-col justify-center px-8">
+          <h1 className="text-5xl font-bold text-red-600 mb-4">NETFLIX</h1>
+          <div className="flex gap-2 items-center">
+            <span className="text-4xl font-bold">{currentSlide.title}</span>
           </div>
-          <div className="ratings">
-            <p className="imdb-rating">{currentSlide.imdb}</p>
-            <p className="streams">{currentSlide.streams}</p>
+          <p className="text-xl text-gray-400 mt-2">{currentSlide.part}</p>
+          <div className="mt-4 text-lg space-y-2">
+            <p>{currentSlide.imdb}</p>
+            <p>{currentSlide.streams}</p>
           </div>
-          <div className="buttons">
-            <button className="play-btn">▶ Play</button>
-            <button className="trailer-btn">Watch Trailer</button>
+          <div className="flex gap-4 mt-6">
+            <button className="px-6 py-2 bg-red-600 text-white rounded-lg font-bold hover:bg-red-700 transition">
+              ▶ Play
+            </button>
+            <button className="px-6 py-2 border-2 border-white text-white rounded-lg font-bold hover:bg-white hover:text-black transition">
+              Watch Trailer
+            </button>
           </div>
         </div>
       </div>

@@ -14,4 +14,30 @@ router.post(
     uploadMovie
   );
 
+
+
 export default router;
+
+
+
+
+
+
+// import { Router } from "express";
+// import { videos, uploadMovie, getVideos } from "../controller/video.controller.js";
+// import multer from "multer";
+
+// const router = Router();
+// const upload = multer();
+
+// // Get Videos Endpoint
+// router.get("/videos", getVideos);
+
+// // Upload Video Endpoint
+// router.post(
+//   "/upload",
+//   upload.fields([{ name: "video" }, { name: "image" }]),
+//   uploadMovie
+// );
+
+// export default router;

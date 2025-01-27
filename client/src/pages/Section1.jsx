@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { onCLS, onFID, onLCP } from "web-vitals";
+// import { onCLS, onFID, onLCP } from "web-vitals";
 import "./Sec1.css";
 
 

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { FiUpload } from 'react-icons/fi';
 import api from '../../axiosConfig'
@@ -11,6 +10,7 @@ const Upload = () => {
     subscription: '',
     videoFile: null,
     imageFile: null,
+    description: '',
   });
 
   const handleChange = (e) => {
@@ -26,8 +26,8 @@ const Upload = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { movieTitle, category, subscription, videoFile, imageFile } = formData;
-    if (!movieTitle || !category || !subscription || !videoFile || !imageFile) {
+    const { movieTitle, category, subscription, videoFile, imageFile, description } = formData;
+    if (!movieTitle || !category || !subscription || !videoFile || !imageFile || !description) {
       toast.warn('All fields are required.');
       return;
     }
@@ -38,6 +38,8 @@ const Upload = () => {
     uploadData.append('subscription', subscription);
     uploadData.append('video', videoFile);
     uploadData.append('image', imageFile);
+    uploadData.append('description',description);
+
 
     
     try {
@@ -70,7 +72,7 @@ const Upload = () => {
             "url('https://wallpapers.com/images/high/netflix-background-gs7hjuwvv2g0e9fj.webp') no-repeat center center/cover",
     }}
 >
-<div className="relative w-[350px] h-[600px]">
+<div className="relative w-[350px] h-[750px]">
                 <div className="absolute w-full h-full bg-black/50 backdrop-blur-md p-6 rounded-lg shadow-lg flex flex-col justify-center">
                    
                 
@@ -163,6 +165,21 @@ const Upload = () => {
           </div>
         </div>
 
+        <div>
+          <label htmlFor="description" className="block text-sm font-medium text-white/60">Description:</label>
+          <textarea
+            id="description"
+            name="description"
+            value={formData.description || ''}
+            onChange={handleChange}
+            rows={4}
+            className="w-full bg-black/20 border border-white/20 rounded-lg py-3 pl-12 pr-4 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/40"
+            placeholder="Enter a brief description of the movie..."
+            required
+          ></textarea>
+        </div>
+
+
         <button
           type="submit"
           className="w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 focus:ring-2 focus:ring-blue-400 focus:outline-none"
@@ -177,3 +194,74 @@ const Upload = () => {
 };
 
 export default Upload;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useEffect, useState } from "react";
+// import api from '../../axiosConfig'
+
+// const VideoList = () => {
+//   const [videos, setVideos] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+
+//   const fetchVideos = async () => {
+//     try {
+//       const response = await api.get("/api/v1/video/videos", {
+//         params: { page: 1, limit: 10 },
+//       });
+//       setVideos(response.data.data);
+//     } catch (err) {
+//       setError("Failed to load videos");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchVideos();
+//   }, []);
+
+//   if (loading) return <p>Loading...</p>;
+//   if (error) return <p>{error}</p>;
+
+//   return (
+//     <div>
+//       <h1>Video List</h1>
+//       <div className="video-grid">
+//         {videos.map((video) => (
+//           <div key={video._id} className="video-card">
+//             <img src={video.thumbnailUrl} alt={video.title} />
+//             <h3>{video.title}</h3>
+//             <p>{video.description}</p>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default VideoList;

@@ -15,17 +15,6 @@ const App = () => {
     const [isNavbarExpanded, setNavbarExpanded] = useState(false);
     return (
         <Router>
-<<<<<<< HEAD
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/upload" element={<Upload />} />
-                <Route element={<PrivateRoute />}>
-                    <Route path="/dashboard" element={<Dashboard />} />
-                </Route>
-            </Routes>
-=======
             <Navbar setNavbarExpanded={setNavbarExpanded} />
             <div
                 className={`home-container ${
@@ -43,7 +32,6 @@ const App = () => {
                     </Route>
                 </Routes>
             </div>
->>>>>>> 2130c72addd6f7d9de4e7dd1b021d0c70acd4100
         </Router>
     );
 };

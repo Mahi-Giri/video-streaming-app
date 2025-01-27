@@ -544,6 +544,7 @@ const Profile = () => {
 
   const [profile, setProfile] = useState({
     username: currentUser?.username || "JohnDoe",
+    email: currentUser?.email || "John@gmail.com",
     password: "",
     bio: currentUser?.bio || "Software Developer. Passionate about coding.",
     profilePicture: currentUser?.profilePicture || "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg",
@@ -658,6 +659,7 @@ const Profile = () => {
 
       const response = await api.put(`/api/v1/user/update/${currentUser._id}`, {
         username: profile.username,
+        email: profile.email,
         password: profile.password || undefined,
         bio: profile.bio,
         profilePicture: imageUrl,
@@ -706,6 +708,16 @@ const Profile = () => {
             className="bg-gray-800 text-white text-lg p-2 rounded-md w-60 text-center focus:outline-none focus:ring-2 focus:ring-red-600 flex justify-center items-center"
             placeholder="Username"
           />
+
+          <input
+            type="text"
+            name="email"
+            value={profile.email}
+            onChange={handleInputChange}
+            className="bg-gray-800 text-white text-lg p-2 rounded-md w-60 text-center focus:outline-none focus:ring-2 focus:ring-red-600 flex justify-center items-center"
+            placeholder="Email"
+          />
+
           <input
             type="password"
             name="password"

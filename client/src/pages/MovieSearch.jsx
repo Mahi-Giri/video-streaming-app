@@ -5,7 +5,6 @@ const MovieSearch = () => {
     const [videoType, setVideoType] = useState("all");
     const [videos, setVideos] = useState([]); 
     const [filteredVideos, setFilteredVideos] = useState([]); 
-    // const API_KEY = "15819227-ef2d84d1681b9442aaa9755b8";
 
     const videoRefs = useRef([]);
     const debounceTimeout = useRef(null); // Ref to store timeout ID
@@ -183,6 +182,7 @@ const MovieSearch = () => {
         try {
             // Simulating API data fetch 
             setVideos(videoData); 
+            console.log("Video data",videoData)
             setFilteredVideos(videoData); 
         } catch (error) {
             console.error("Error fetching videos:", error);

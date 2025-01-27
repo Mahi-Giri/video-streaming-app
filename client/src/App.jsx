@@ -14,6 +14,7 @@ import Subscription from "./pages/Subscription";
 import AdminRoute from "./components/AdminRoute";
 import { useSelector } from "react-redux";
 import Settings from "./pages/Settings";
+import MovieSearch from "./pages/MovieSearch";
 const App = () => {
     const [isNavbarExpanded, setNavbarExpanded] = useState(false);
     const { currentUser } = useSelector((store) => store.user);
@@ -41,6 +42,7 @@ const App = () => {
                         <Route element={<AdminRoute />}>
                             <Route path="/dashboard" element={<Dashboard />} />
                         </Route>
+                        <Route path="/search" element={<MovieSearch/>}/>
                     </Route>
                 </Routes>
             </div>

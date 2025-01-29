@@ -1,19 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// import { Modal, Button } from "flowbite-react";
-import {
-    FaHome,
-    FaSearch,
-    FaFilm,
-    FaTv,
-    FaUser,
-    FaSignOutAlt,
-    FaSubscript,
-} from "react-icons/fa";
-// import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { FaHome, FaSearch, FaUser, FaSignOutAlt } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineSubscriptions } from "react-icons/md";
-// import SubscriptionPage from "./Subscription";
+import { FiRadio } from "react-icons/fi";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const Navbar = ({ setNavbarExpanded }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -25,181 +16,106 @@ const Navbar = ({ setNavbarExpanded }) => {
 
   return (
     <nav
-      className={`fixed flex flex-col h-screen bg-black text-white transition-all duration-300 ${
+      className={`fixed flex flex-col h-full bg-black text-white transition-all ease-in-out z-50 ${
         isExpanded ? "w-40" : "w-16"
-      }`}
+      } items-start`}
     >
-      <div className="cursor-pointer p-2 text-xl" onClick={toggleNavbar}>
-        <span>&#9776;</span>
+      <div className="cursor-pointer p-4 text-xl" onClick={toggleNavbar}>
+        <GiHamburgerMenu />
       </div>
-      <div className="flex flex-col mt-24">
+      <div className="flex flex-col mt-20 w-full">
+
         {/* Home */}
-        <div className="relative group">
-          <Link to="/" className="flex items-center p-4 hover:bg-gray-700">
+        <div className="group flex items-center p-4 hover:bg-gray-700 relative w-full">
+          <Link to="/" className="flex items-center gap-4 w-full">
             <FaHome className="text-xl" />
-            {isExpanded && <span className="ml-4 text-base">Home</span>}
+            {isExpanded && <span className="text-base">Home</span>}
           </Link>
-          <div className="absolute top-0 left-16 hidden group-hover:block">
-            <div className="relative">
-              <div className="absolute top-0 z-10 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
-                Home
-              </div>
-              <svg
-                className="absolute z-10 w-6 h-6 text-orange-500 transform -translate-x-12 -translate-y-3 fill-current"
-                width="8"
-                height="8"
-              >
-                <rect x="12" y="-10" width="8" height="8" transform="rotate(45)" />
-              </svg>
-            </div>
-          </div>
+          {!isExpanded && (
+            <span className="absolute top-10 bg-gray-800 text-white text-sm rounded-md py-1 px-3 shadow-md opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-200 z-50">
+              Home
+            </span>
+          )}
         </div>
+
         {/* Explore */}
-        <div className="relative group">
-          <Link to="/search" className="flex items-center p-4 hover:bg-gray-700">
+        <div className="group flex items-center p-4 hover:bg-gray-700 relative w-full">
+          <Link to="/search" className="flex items-center gap-4 w-full">
             <FaSearch className="text-xl" />
-            {isExpanded && <span className="ml-4 text-base">Explore</span>}
+            {isExpanded && <span className="text-base">Explore</span>}
           </Link>
-          <div className="absolute top-0 left-16 hidden group-hover:block">
-            <div className="relative">
-              <div className="absolute top-0 z-10 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
-                Explore
-              </div>
-              <svg
-                className="absolute z-10 w-6 h-6 text-orange-500 transform -translate-x-12 -translate-y-3 fill-current"
-                width="8"
-                height="8"
-              >
-                <rect x="12" y="-10" width="8" height="8" transform="rotate(45)" />
-              </svg>
-            </div>
-          </div>
+          {!isExpanded && (
+            <span className="absolute top-10 bg-gray-800 text-white text-sm rounded-md py-1 px-3 shadow-md opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-200 z-50">
+              Explore
+            </span>
+          )}
         </div>
-        {/* Movies */}
-        <div className="relative group">
-          <Link to="/movies" className="flex items-center p-4 hover:bg-gray-700">
-            <FaFilm className="text-xl" />
-            {isExpanded && <span className="ml-4 text-base">Movies</span>}
-          </Link>
-          <div className="absolute top-0 left-10 hidden group-hover:block">
-            <div className="relative">
-              <div className="absolute left-10 z-0 w-20 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
-                Movies
-              </div>
-              <svg
-                className="absolute z-10 w-6 h-6 text-orange-500 transform -translate-x-12 -translate-y-3 fill-current"
-                width="8"
-                height="8"
-              >
-                <rect x="12" y="-10" width="8" height="8" transform="rotate(45)" />
-              </svg>
-            </div>
-          </div>
-        </div>
-        {/* Series */}
-        <div className="relative group">
-          <Link to="/series" className="flex items-center p-4 hover:bg-gray-700">
-            <FaTv className="text-xl" />
-            {isExpanded && <span className="ml-4 text-base">Series</span>}
-          </Link>
-          <div className="absolute top-0 left-16 hidden group-hover:block">
-            <div className="relative">
-              <div className="absolute top-0 z-10 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
-                Series
-              </div>
-              <svg
-                className="absolute z-10 w-6 h-6 text-orange-500 transform -translate-x-12 -translate-y-3 fill-current"
-                width="8"
-                height="8"
-              >
-                <rect x="12" y="-10" width="8" height="8" transform="rotate(45)" />
-              </svg>
-            </div>
-          </div>
-        </div>
-        <div className="relative group">
-          <Link to="/Subscription" className="flex items-center p-4 hover:bg-gray-700">
+
+        {/* Subscription */}
+        <div className="group flex items-center p-4 hover:bg-gray-700 relative w-full">
+          <Link to="/Subscription" className="flex items-center gap-4 w-full">
             <MdOutlineSubscriptions className="text-xl" />
-            {isExpanded && <span className="ml-4 text-base">Subscription</span>}
+            {isExpanded && <span className="text-base">Subscription</span>}
           </Link>
-          <div className="absolute top-0 left-16 hidden group-hover:block">
-            <div className="relative">
-              <div className="absolute top-0 z-10 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
-                Subscribe
-              </div>
-              <svg
-                className="absolute z-10 w-6 h-6 text-orange-500 transform -translate-x-12 -translate-y-3 fill-current"
-                width="8"
-                height="8"
-              >
-                <rect x="12" y="-10" width="8" height="8" transform="rotate(45)" />
-              </svg>
+          {!isExpanded && (
+            <div className="absolute top-10 bg-gray-800 text-white text-sm rounded-md py-1 px-3 shadow-md opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-200 z-50">
+              Subscription
             </div>
-          </div>
+          )}
         </div>
+
+        {/* Live Stream */}
+        <div className="group flex items-center p-4 hover:bg-gray-700 relative w-full">
+          <Link to="/Live" className="flex items-center gap-4 w-full">
+            <FiRadio className="text-xl" />
+            {isExpanded && <span className="text-base">Live Stream</span>}
+          </Link>
+          {!isExpanded && (
+            <div className="absolute top-10 bg-gray-800 text-white text-sm rounded-md py-1 px-3 shadow-md opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-200 z-50">
+              Live Stream
+            </div>
+          )}
+        </div>
+
         {/* Profile */}
-        <div className="relative group">
-          <Link to="/profile" className="flex items-center p-4 hover:bg-gray-700">
+        <div className="group flex items-center p-4 hover:bg-gray-700 relative w-full">
+          <Link to="/profile" className="flex items-center gap-4 w-full">
             <FaUser className="text-xl" />
-            {isExpanded && <span className="ml-4 text-base">Profile</span>}
+            {isExpanded && <span className="text-base">Profile</span>}
           </Link>
-          <div className="absolute top-0 left-16 hidden group-hover:block">
-            <div className="relative">
-              <div className="absolute top-0 z-10 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
-                Profile
-              </div>
-              <svg
-                className="absolute z-10 w-6 h-6 text-orange-500 transform -translate-x-12 -translate-y-3 fill-current"
-                width="8"
-                height="8"
-              >
-                <rect x="12" y="-10" width="8" height="8" transform="rotate(45)" />
-              </svg>
+          {!isExpanded && (
+            <div className="absolute top-10 bg-gray-800 text-white text-sm rounded-md py-1 px-3 shadow-md opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-200 z-50">
+              Profile
             </div>
-          </div>
+          )}
         </div>
+
         {/* Settings */}
-        <div className="relative group">
-          <Link to="/settings" className="flex items-center p-4 hover:bg-gray-700">
+        <div className="group flex items-center p-4 hover:bg-gray-700 relative w-full">
+          <Link to="/settings" className="flex items-center gap-4 w-full">
             <IoSettingsOutline className="text-xl" />
-            {isExpanded && <span className="ml-4 text-base">Settings</span>}
+            {isExpanded && <span className="text-base">Settings</span>}
           </Link>
-          <div className="absolute top-0 left-16 hidden group-hover:block">
-            <div className="relative">
-              <div className="absolute top-0 z-10 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
-                Settings
-              </div>
-              <svg
-                className="absolute z-10 w-6 h-6 text-orange-500 transform -translate-x-12 -translate-y-3 fill-current"
-                width="8"
-                height="8"
-              >
-                <rect x="12" y="-10" width="8" height="8" transform="rotate(45)" />
-              </svg>
+          {!isExpanded && (
+            <div className="absolute top-10 bg-gray-800 text-white text-sm rounded-md py-1 px-3 shadow-md opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-200 z-50">
+              Settings
             </div>
-          </div>
+          )}
         </div>
-        {/* Logout */}
-        <div className="relative group">
-          <Link to="/login" className="flex items-center p-4 hover:bg-gray-700">
+
+        {/* Log Out */}
+        <div className="group flex items-center p-4 hover:bg-gray-700 relative w-full">
+          <Link to="/login" className="flex items-center gap-4 w-full">
             <FaSignOutAlt className="text-xl" />
-            {isExpanded && <span className="ml-4 text-base">Log Out</span>}
+            {isExpanded && <span className="text-base">Log Out</span>}
           </Link>
-          <div className="absolute top-0 left-16 hidden group-hover:block">
-            <div className="relative">
-              <div className="absolute top-0 z-10 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
-                Log Out
-              </div>
-              <svg
-                className="absolute z-10 w-6 h-6 text-orange-500 transform -translate-x-12 -translate-y-3 fill-current"
-                width="8"
-                height="8"
-              >
-                <rect x="12" y="-10" width="8" height="8" transform="rotate(45)" />
-              </svg>
+          {!isExpanded && (
+            <div className="absolute top-10 bg-gray-800 text-white text-sm rounded-md py-1 px-3 shadow-md opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-200 z-50">
+              Log Out
             </div>
-          </div>
+          )}
         </div>
+
       </div>
     </nav>
   );

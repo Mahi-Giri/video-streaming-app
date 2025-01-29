@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-// import './Sec1.css';
 
 const Sections = () => {
   const sliderRef = useRef(null);
@@ -76,6 +75,15 @@ const Sections = () => {
           alt="Movie 8"
           className="w-48 h-72 rounded-lg object-cover"
         />
+        <img
+          src="src/images/Rectangle 9.png"
+          alt="Movie 8"
+          className="w-48 h-72 rounded-lg object-cover"
+        /><img
+          src="src/images/Rectangle 10.png"
+          alt="Movie 8"
+          className="w-48 h-72 rounded-lg object-cover"
+        />
       </div>
 
       {/* Left Button */}
@@ -124,3 +132,4 @@ const Sections = () => {
 };
 
 export default Sections;
+

@@ -536,6 +536,7 @@ import { FaAngleRight, FaAngleLeft, FaEllipsisV } from "react-icons/fa";
 import { AiOutlineLogout } from "react-icons/ai";
 import { updateStart, updateSuccess, updateFailure } from "../redux/userSlice";
 import api from "../axiosConfig";
+import axios from "axios";
 
 const Profile = () => {
   const { currentUser, loading } = useSelector((state) => state.user);
@@ -601,13 +602,15 @@ const Profile = () => {
     data.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
     
     try {
-      const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
-        {
-          method: "POST",
-          body: data,
-        }
-      );
+      const response = await axios.post(
+      `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
+      data,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
       const result = await response.json();
       return result.secure_url;
     } catch (error) {

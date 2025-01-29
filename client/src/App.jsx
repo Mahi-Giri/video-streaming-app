@@ -15,6 +15,7 @@ import AdminRoute from "./components/AdminRoute";
 import { useSelector } from "react-redux";
 import Settings from "./pages/Settings";
 import MovieSearch from "./pages/MovieSearch";
+import EditDeleteVideo from "./components/video/EditDeleteVideo";
 const App = () => {
     const [isNavbarExpanded, setNavbarExpanded] = useState(false);
     const { currentUser } = useSelector((store) => store.user);
@@ -39,6 +40,7 @@ const App = () => {
                         <Route path='/settings' element={<Settings/>}/>
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/upload" element={<Upload />} />
+                        <Route path="/EditVideo" element={<EditDeleteVideo />} />
                         <Route element={<AdminRoute />}>
                             <Route path="/dashboard" element={<Dashboard />} />
                         </Route>

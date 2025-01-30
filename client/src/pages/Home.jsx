@@ -1,23 +1,22 @@
 import React from "react";
 import Header from "./header";
-import Section from "./Section1";
 import Sections from "./Section2";
+import Section from "./Section1";
 
-
-const Home =()=>{
-    return (
-        <div className="home-container">
-        <div className="header-container">
-        <Header/>
-        </div>
-            <div className="section1-container">
-              <Section/>
-            </div>    
-            <div className="section2-container">
-              <Sections/>
-            </div>
-        </div>
-    )
+const Home = () => {
+  return (
+    <div className="transition-all duration-300">
+      <div className="mb-4">
+        <Header />
+      </div>
+      <div className="mb-4">
+        <Section />
+      </div>
+     <div>
+      <Sections/>
+     </div>
+    </div>
+  );
 };
 
 export default Home;

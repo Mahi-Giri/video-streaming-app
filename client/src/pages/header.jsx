@@ -8,7 +8,6 @@ function Header() {
 
   // Fetch data from the API
   useEffect(() => {
-    const API_KEY = "48515426-3de9de4299eadbd760d5f0c0c";
     const fetchData = async () => {
       try {
         const response = await fetch(

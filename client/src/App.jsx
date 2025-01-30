@@ -19,7 +19,6 @@ import "./App.css";
 const App = () => {
     const [isNavbarExpanded, setNavbarExpanded] = useState(false);
     const { currentUser } = useSelector((store) => store.user);
-  console.log(currentUser)
     return (
         <Router>
         

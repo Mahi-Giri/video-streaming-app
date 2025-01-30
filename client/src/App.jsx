@@ -21,8 +21,6 @@ const App = () => {
     const { currentUser } = useSelector((store) => store.user);
     return (
         <Router>
-        
-        {/* <Navbar setNavbarExpanded={setNavbarExpanded} /> */}
        <div className="flex h-screen bg-gray-100">
         {/* Navbar Section */}
         {currentUser &&
@@ -40,7 +38,6 @@ const App = () => {
                     <Route path="/signup" element={<Signup />} />
                     <Route element={<PrivateRoute />}>
                         <Route path="/" element={<Home />} />
-                        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
                         <Route path="/Subscription" element={<Subscription />}/>
                         <Route path='/settings' element={<Settings/>}/>
                         <Route path="/profile" element={<Profile />} />

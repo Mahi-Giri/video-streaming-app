@@ -21,11 +21,11 @@ const VideoPlayerPage = () => {
 
   // Fetch suggested videos from the API
   useEffect(() => {
-    const API_KEY = "48515426-3de9de4299eadbd760d5f0c0c";
+    
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://pixabay.com/api/videos/?key=${API_KEY}&q=football&pretty=true`
+          `https://pixabay.com/api/videos/?key=${import.meta.env.VITE_API_KEY}&q=football&pretty=true`
         );
         const data = await response.json();
         if (data.hits) {

@@ -1,18 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Modal, Button } from "flowbite-react";
-import {
-    FaHome,
-    FaSearch,
-    FaFilm,
-    FaTv,
-    FaUser,
-    FaSignOutAlt,
-} from "react-icons/fa";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { FaHome, FaSearch, FaUser, FaSignOutAlt } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
-import { MdSubscriptions } from "react-icons/md";
-import "./Nav.css";
+import { MdOutlineSubscriptions } from "react-icons/md";
+import { FiRadio } from "react-icons/fi";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { Modal, Button } from "flowbite-react";
 import api from "../axiosConfig";
 import {
     signOutStart,
@@ -21,18 +14,21 @@ import {
 } from "../redux/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 
-const Navbar = () => {
-    const dispatch = useDispatch();
 
-    const [isExpanded, setIsExpanded] = useState(false);
+const Navbar = ({ setNavbarExpanded }) => {
+        const dispatch = useDispatch();
+
+  const [isExpanded, setIsExpanded] = useState(false);
     const [openModal, setOpenModal] = useState(false);
 
-    const toggleNavbar = () => {
-        setIsExpanded(!isExpanded);
-    };
+  const toggleNavbar = () => {
+    setIsExpanded(!isExpanded);
+    setNavbarExpanded(!isExpanded);
+  };
 
-    const handleLogout = async () => {
+      const handleLogout = async () => {
       setOpenModal(false)
         dispatch(signOutStart());
         const response = await api.post("/api/v1/user/signout");
@@ -44,66 +40,114 @@ const Navbar = () => {
             dispatch(signOutFailure(response.data || "Logout Failed"));
         }
     };
+  return (
+    <>
+    <nav
+      className={`fixed flex flex-col h-full bg-black text-white transition-all ease-in-out z-50 ${
+        isExpanded ? "w-40" : "w-16"
+      } items-start`}
+    >
+      <div className="cursor-pointer p-4 text-xl" onClick={toggleNavbar}>
+        <GiHamburgerMenu />
+      </div>
+      <div className="flex flex-col mt-20 w-full">
 
-    return (
-        <>
-            {" "}
-            <nav className={`nav-container ${isExpanded ? "expanded" : ""}`}>
-                <div className="toggle-button" onClick={toggleNavbar}>
-                    <span className="menu-icon">&#9776;</span>
-                </div>
-                <div className="nav-left">
-                    <Link to="/" className="nav-link">
-                        <FaHome className="icon" title="Home" />
-                        {isExpanded && <span className="link-name">Home</span>}
-                    </Link>
-                    <Link to="/search" className="nav-link">
-                        <FaSearch className="icon" title="Search" />
-                        {isExpanded && (
-                            <span className="link-name">Explore</span>
-                        )}
-                    </Link>
-                    <Link to="/movies" className="nav-link">
-                        <FaFilm className="icon" title="Movies" />
-                        {isExpanded && (
-                            <span className="link-name">Movies</span>
-                        )}
-                    </Link>
-                    <Link to="/series" className="nav-link">
-                        <FaTv className="icon" title="Series" />
-                        {isExpanded && (
-                            <span className="link-name">Series</span>
-                        )}
-                    </Link>
-                    <Link to="/Subscription" className="nav-link">
-          <MdSubscriptions />
-          {isExpanded && <span className="link-name">Subscription</span>}
-        </Link>
-                    <Link to="/profile" className="nav-link">
-                        <FaUser className="icon" title="Profile" />
-                        {isExpanded && (
-                            <span className="link-name">Profile</span>
-                        )}
-                    </Link>
-                    <div
-                        onClick={() => setOpenModal(true)}
-                        className="nav-link"
-                    >
-                        <FaSignOutAlt className="icon" title="Logout" />
-                        {isExpanded && (
-                            <span className="link-name">Log Out</span>
-                        )}
-                    </div>
-                    <Link to="/settings" className="nav-link">
-                        <IoSettingsOutline className="icon" title="Settings" />
-                        {isExpanded && (
-                            <span className="link-name">Settings</span>
-                        )}
-                    </Link>
-                </div>
-            </nav>
-         
-            <Modal
+        {/* Home */}
+        <div className="group flex items-center p-4 hover:bg-gray-700 relative w-full">
+          <Link to="/" className="flex items-center gap-4 w-full">
+            <FaHome className="text-xl" />
+            {isExpanded && <span className="text-base">Home</span>}
+          </Link>
+          {!isExpanded && (
+            <span className="absolute left-16 bg-gray-800 text-white text-sm rounded-md py-1 px-3 shadow-md opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-200 z-50">
+              Home
+            </span>
+          )}
+        </div>
+
+        {/* Explore */}
+        <div className="group flex items-center p-4 hover:bg-gray-700 relative w-full">
+          <Link to="/search" className="flex items-center gap-4 w-full">
+            <FaSearch className="text-xl" />
+            {isExpanded && <span className="text-base">Explore</span>}
+          </Link>
+          {!isExpanded && (
+            <span className="absolute left-16 bg-gray-800 text-white text-sm rounded-md py-1 px-3 shadow-md opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-200 z-50">
+              Explore
+            </span>
+          )}
+        </div>
+
+        {/* Subscription */}
+        <div className="group flex items-center p-4 hover:bg-gray-700 relative w-full">
+          <Link to="/Subscription" className="flex items-center gap-4 w-full">
+            <MdOutlineSubscriptions className="text-xl" />
+            {isExpanded && <span className="text-base">Subscription</span>}
+          </Link>
+          {!isExpanded && (
+            <div className="absolute left-16 bg-gray-800 text-white text-sm rounded-md py-1 px-3 shadow-md opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-200 z-50">
+              Subscription
+            </div>
+          )}
+        </div>
+
+        {/* Live Stream */}
+        <div className="group flex items-center p-4 hover:bg-gray-700 relative w-full">
+          <Link to="/Live" className="flex items-center gap-4 w-full">
+            <FiRadio className="text-xl" />
+            {isExpanded && <span className="text-base">Live Stream</span>}
+          </Link>
+          {!isExpanded && (
+            <div className="absolute left-16 bg-gray-800 text-white text-sm rounded-md py-1 px-3 shadow-md opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-200 z-50">
+              LiveStream
+            </div>
+          )}
+        </div>
+
+        {/* Profile */}
+        <div className="group flex items-center p-4 hover:bg-gray-700 relative w-full">
+          <Link to="/profile" className="flex items-center gap-4 w-full">
+            <FaUser className="text-xl" />
+            {isExpanded && <span className="text-base">Profile</span>}
+          </Link>
+          {!isExpanded && (
+            <div className="absolute left-16 bg-gray-800 text-white text-sm rounded-md py-1 px-3 shadow-md opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-200 z-50">
+              Profile
+            </div>
+          )}
+        </div>
+
+        {/* Settings */}
+        <div className="group flex items-center p-4 hover:bg-gray-700 relative w-full">
+          <Link to="/settings" className="flex items-center gap-4 w-full">
+            <IoSettingsOutline className="text-xl" />
+            {isExpanded && <span className="text-base">Settings</span>}
+          </Link>
+          {!isExpanded && (
+            <div className="absolute left-16 bg-gray-800 text-white text-sm rounded-md py-1 px-3 shadow-md opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-200 z-50">
+              Settings
+            </div>
+          )}
+        </div>
+
+        {/* Log Out */}
+        <div className="group flex items-center p-4 hover:bg-gray-700 relative w-full">
+        <div className="flex items-center gap-4 w-full" onClick={() => setOpenModal(true)}>
+          {/* <Link to="/login" className="flex items-center gap-4 w-full"> */}
+            <FaSignOutAlt className="text-xl" />
+            {isExpanded && <span className="text-base">Log Out</span>}
+            </div>
+          {/* </Link> */}
+          {!isExpanded && (
+            <div className="absolute left-16 bg-gray-800 text-white text-sm rounded-md py-1 px-3 shadow-md opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-200 z-50">
+              LogOut
+            </div>
+          )}
+          </div>
+      </div>
+    </nav>
+
+    <Modal
                 show={openModal}
                 size="md"
                 position="center"
@@ -133,8 +177,8 @@ const Navbar = () => {
                     </Modal.Body>
                 </div>
             </Modal>
-        </>
-    );
+</>
+  );
 };
 
 export default Navbar;

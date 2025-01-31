@@ -2,9 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+.no-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+/* Prevent body from scrolling horizontally */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #000;
-    color: #ffffff;
-  }
+  overflow-x: hidden;
+}
+
+/* For the sections with horizontal scrolling */
+.relative {
+  overflow-x: hidden;
+}

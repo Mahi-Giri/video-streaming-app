@@ -14,7 +14,6 @@ export const signout = (req, res, next) => {
 };
 
 export const updateProfile = async (req, res, next) => {
-    console.log(req.params);
     if (!req.user || req.user._id !== req.params.userId) {
         return next(errorHandler(403, "You can update only your account"));
     }

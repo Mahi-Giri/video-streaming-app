@@ -151,7 +151,8 @@ const Profile = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white font-sans overflow-y-auto pt-16 sm:pt-20">
+        <div className="min-h-screen w-full bg-gradient-to-b from-gray-900 to-black text-white font-sans pt-16 sm:pt-20   ">
+             <h1 className=" text-center px-4 sm:px-8 md:px-12 text-2xl font-bold">User Profile </h1>
             {/* Profile Section */}
             <div className="flex flex-col items-center mt-10 space-y-6 px-4 sm:px-8">
                 <div className="border-0 md:border border-white rounded-lg flex flex-col items-center justify-center space-y-4 p-8 md:p-16 shadow-none md:shadow-lg md:shadow-yellow-100 w-full max-w-4xl">
@@ -220,7 +221,7 @@ const Profile = () => {
                 </div>
             </div>
 
-
+            {/* Sections: Watch History & Resume Watching */}
             {[
                 {
                     section: "Watch History",

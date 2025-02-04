@@ -11,14 +11,24 @@ const videoSchema = new mongoose.Schema(
             type: String,
             trim: true,
         },
-        thumbnailUrl: {
+        category: {
             type: String,
             required: true,
         },
-        videoUrl: {
+        subscription:{
+            type:String,
+            required:true,
+        },
+        
+        videoUrls: [{ // Changed to array
             type: String,
             required: true,
-        },
+          }],
+          thumbnailUrls: [{ // Changed to array
+            type: String,
+            required: true,
+          }],
+
         views: {
             type: Number,
             default: 0,
@@ -27,6 +37,11 @@ const videoSchema = new mongoose.Schema(
             type: Number,
             default: 0,
         },
+
+        comments:[{
+            type:String,
+            required:true,
+        }],
     },
     {
         timestamps: true,

@@ -17,7 +17,7 @@ router.post('/upload',
     { name: 'images', maxCount: 10 }   // Allow up to 10 image files
   ]), 
   uploadMovie
-);
+); 
 router.put('/edit/:id', editMovie);
 router.delete('/delete/:id', deleteMovie);
 

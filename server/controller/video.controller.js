@@ -48,7 +48,6 @@ export const uploadMovie = async (req, res) => {
     const videoFiles = req.files.videos;
     const imageFiles = req.files.images;
 
-    console.log(videoFiles)
     // Upload videos to S3
     const uploadedVideos = await Promise.all(
       videoFiles.map(file => uploadToS3(file, category, 'videos'))
@@ -143,11 +142,10 @@ export const editMovie = async (req, res) => {
       if (!video) {
         return res.status(404).json({ success: false, message: 'Video not found' });
       }
-      if (req.files && req.files['video']) {
+
+      if (req.files && req.files['videos']) {
         const uploadedVideos = [];
-        // console.log("files",req.files)
-        for (const videoFile of req.files['video']) {
-          console.log("video file", video)
+        for (const videoFile of req.files['videos']) {
           const videoKey = `${category}/videos/${Date.now()}-${videoFile.originalname}`;
           const videoUploadParams = {
             Bucket: process.env.AWS_S3_BUCKET_NAME,
@@ -158,7 +156,6 @@ export const editMovie = async (req, res) => {
 
           const videoUploadResult = await s3.upload(videoUploadParams).promise();
           uploadedVideos.push(videoUploadResult.Location);
-          console.log("videoKey :",updatedVideoData)
         }
         updatedVideoData.videoUrls = uploadedVideos;
       }
@@ -184,8 +181,6 @@ export const editMovie = async (req, res) => {
         new: true,
         runValidators: true,
       });
-      console.log("Updated video data:", updatedVideoData);
-
 
       if (!updatedVideo) {
         return res.status(404).json({ success: false, message: 'Video not found' });
@@ -194,7 +189,7 @@ export const editMovie = async (req, res) => {
       res.status(200).json({
         success: true,
         message: 'Video updated successfully',
-        video: "",
+        video: updatedVideo,
       });
     } catch (error) {
       console.error(error);

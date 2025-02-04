@@ -37,7 +37,7 @@ const uploadToS3 = async (file, category, type) => {
 
 export const uploadMovie = async (req, res) => {
   try {
-    if (!req.files || !req.files.videos || !req.files.images) {
+    if (!req.files && !req.files.videos && !req.files.images) {
       return res.status(400).json({ 
         success: false, 
         message: 'Both video and image files are required' 

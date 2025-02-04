@@ -37,29 +37,25 @@ const uploadToS3 = async (file, category, type) => {
 
 export const uploadMovie = async (req, res) => {
   try {
-    if (!req.files && !req.files.videos && !req.files.images) {
-      return res.status(400).json({ 
-        success: false, 
-        message: 'Both video and image files are required' 
+    const { movieTitle, category, subscription, description } = req.body;
+    const videoFiles = req?.files?.videos || [];
+    const imageFiles = req?.files?.images || [];
+
+    if (!videoFiles.length || !imageFiles.length) {
+      return res.status(400).json({
+        success: false,
+        message: 'Both video and image files are required',
       });
     }
 
-    const { movieTitle, category, subscription, description } = req.body;
-    const videoFiles = req.files.videos;
-    const imageFiles = req.files.images;
+    // Upload files to S3 in parallel
+    const [uploadedVideos, uploadedImages] = await Promise.all([
+      Promise.all(videoFiles.map(file => uploadToS3(file, category, 'videos'))),
+      Promise.all(imageFiles.map(file => uploadToS3(file, category, 'images')))
+    ]);
 
-    // Upload videos to S3
-    const uploadedVideos = await Promise.all(
-      videoFiles.map(file => uploadToS3(file, category, 'videos'))
-    );
-
-    // Upload images to S3
-    const uploadedImages = await Promise.all(
-      imageFiles.map(file => uploadToS3(file, category, 'images'))
-    );
-
-    // Create new video document
-    const newMovie = new Video({
+    // Create and save the movie
+    const newMovie = await Video.create({
       title: movieTitle,
       category,
       subscription,
@@ -68,19 +64,17 @@ export const uploadMovie = async (req, res) => {
       thumbnailUrls: uploadedImages,
     });
 
-    await newMovie.save();
-
-    res.status(201).json({ 
+    return res.status(201).json({
       success: true,
-      message: 'Movies uploaded successfully', 
-      movie: newMovie 
+      message: 'Movie uploaded successfully',
+      movie: newMovie,
     });
   } catch (error) {
     console.error('Upload error:', error);
-    res.status(500).json({ 
-      success: false, 
-      message: 'Server Error', 
-      error: error.message 
+    return res.status(500).json({
+      success: false,
+      message: 'Server Error',
+      error: error.message,
     });
   }
 };

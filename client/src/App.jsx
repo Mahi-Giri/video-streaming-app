@@ -14,6 +14,9 @@ import Settings from "./pages/Settings";
 import MovieSearch from "./pages/MovieSearch";
 import VideoPlayerPage from "./components/Videoplayer";
 import "./App.css";
+import Streamvideo from "./components/Livestreaming/Streamvideo";
+import MeetingRoom from "./components/Livestreaming/MeetingRoom";
+import CreateMeeting from "./components/Livestreaming/CreateMerting";
 
 
 const App = () => {
@@ -41,7 +44,11 @@ const App = () => {
                         <Route path="/Subscription" element={<Subscription />}/>
                         <Route path='/settings' element={<Settings/>}/>
                         <Route path="/profile" element={<Profile />} />
-                        {/* <Route path="/upload" element={<Upload />} /> */}
+                        {/* <Route path="/Livestreaming" element={<Livestreaming />} /> */}
+                        <Route path="/Streamvideo/:meetingId" element={<Streamvideo />} />
+                        <Route path="/joinRoom" element={<MeetingRoom/>}/>
+                        <Route path="/createRoom" element={<CreateMeeting/>}/>
+
                         <Route path="/videoplayer" element={<VideoPlayerPage/>} />
                         <Route path="/search" element={<MovieSearch/>}/>
                         <Route element={<AdminRoute />}>

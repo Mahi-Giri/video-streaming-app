@@ -93,7 +93,7 @@ const Navbar = ({ setNavbarExpanded }) => {
 
         {/* Live Stream */}
         <div className="group flex items-center p-4 hover:bg-gray-700 relative w-full">
-          <Link to="/Live" className="flex items-center gap-4 w-full">
+          <Link to="/createRoom" className="flex items-center gap-4 w-full">
             <FiRadio className="text-xl" />
             {isExpanded && <span className="text-base">Live Stream</span>}
           </Link>
